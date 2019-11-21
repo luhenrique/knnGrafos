@@ -24,7 +24,7 @@ void print_matrix(int s, int dim, int m[dim][dim]){
 
 void print_visited(int dim, int visited[dim]){
   for(int i =0; i<=n_visited; i++){
-    printf("%i\n", visited[i]);
+    printf("%i \n", visited[i]);
   }
 }
 
@@ -54,6 +54,8 @@ void construct (){
    int m[dimention][dimention];
    file_to_matrix(name_of_file, dimention, m);
    int visited[dimention];
+   int solu[dimention];
+   int tam = dimention;
 
 
 
@@ -92,11 +94,15 @@ void construct (){
     }
     insert_into_visited(current_i, dimention, visited);
     n_visited++;
-
+    solu[k] = current_i;
     printf("\nDe %i para %i com custo %i",current_i,next_i, shorter);
 
   }
   printf("\nTamanho do caminho: %li\n", size_of_path);
+  printf("noisSolu %d \n",CalcDist(solu,tam,dimention,m));
+  twoOpt(solu,tam,dimention,m);
+  printf("nois %d \n",CalcDist(solu,tam,dimention,m));
+
 }
 
 
@@ -124,12 +130,15 @@ int troca(int *solu,int i,int j,int tam){
 
 int CalcDist(int *solu,int tam,int dim, int m[dim][dim]){
     int total = 0;
-    int j =0;
     for (int i = 0; i < (tam-1); i++){
-        j++;
-        total += m[solu[i]-1][solu[i+1]-1];
+    	total += m[solu[i]-1] [solu[i+1]-1];
+    //	printf("de %d para %d eh %d\n",solu[i],solu[i+1], m[solu[i]-1] [solu[i+1]-1]);
+    //	printf("total %d\n",total );
+        
     }
-    total += m[solu[j]-1][solu[0]-1];
+    total += m[solu[tam-1]-1][((solu[0]))-1];
+    //printf("de %d para %d eh: %d\n",(solu[tam-1]),((solu[0])), m[solu[tam-1]-1][((solu[0]))-1]);
+   // printf("Soma: %d\n", total);
     return total;
 
 }
@@ -147,7 +156,7 @@ void printVector(int *copia, int tam){
     }
 }
 
-void twoOpt(int *solu, int tam){
+void twoOpt(int *solu, int tam, int dimention, int m[dimention][dimention]){
     int novo[tam];
     int best[tam];
     int dist = CalcDist(solu, tam, dimention, m);
@@ -180,5 +189,7 @@ void twoOpt(int *solu, int tam){
 int main()
 {
   construct();
+  
+
   return 0;
 }
