@@ -181,20 +181,4 @@ void file_to_matrix(char name[50], int dimention, int matrix[dimention][dimentio
   }
 
 }
-/*
-int main() {
 
-  char name_of_file[50] = "rbg403.atsp";
-  int dimention = get_dimention(name_of_file);
-  printf("DIMENTION: %d\n", dimention);
-  int matrix[dimention][dimention];
-  file_to_matrix(name_of_file, dimention, matrix);
-
-  for (int i = 0; i < dimention; i++) {
-    for (int j = 0; j < dimention; j++) {
-      printf("%d --- ", matrix[i][j]);
-    }
-    printf("\n");
-  }
-  return 0;
-}*/
