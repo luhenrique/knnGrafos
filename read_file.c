@@ -181,4 +181,3 @@ void file_to_matrix(char name[50], int dimention, int matrix[dimention][dimentio
   }
 
 }
-
