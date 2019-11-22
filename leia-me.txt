@@ -1,0 +1,29 @@
+Compile o algoritmo usando o seguindo comando em Linux:
+
+gcc construtivoMelhorativo.c -o construtivoMelhorativo
+
+Para executar use:
+./construtivoMelhorativo
+
+Após a execução, é necessário digitar o nome do arquivo para leitura.
+Os arquivo encontram-se na mesma pasta do executável, então basta digitar algum dos nomes abaixo:
+
+br17.atsp
+ftv33.atsp
+ftv35.atsp
+ftv38.atsp
+p43.atsp
+ftv44.atsp
+ftv47.atsp
+ry48p.atsp
+ft53.atsp
+ftv55.atsp
+ftv64.atsp
+ft70.atsp
+ftv70.atsp
+kro124p.atsp
+ftv170.atsp
+rbg323.atsp
+rbg358.atsp
+rbg403.atsp
+rbg443.atsp
