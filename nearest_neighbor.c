@@ -130,7 +130,7 @@ void construct (){
   	twoOpt(solu,tam,dimention,m);
   	nossaSoluNova = CalcDist(solu,tam,dimention,m);
 
-  	printf("Iteração %d: De custo inicial / atual: %li / %d \n",i, size_of_path, nossaSolu);
+  	printf("Iteração %d: De custo inicial / atual: %li / %d \n",i, size_of_path, nossaSoluNova);
   	do {
   		i++;
   		nossaSolu = nossaSoluNova;
@@ -138,8 +138,7 @@ void construct (){
   		nossaSoluNova = CalcDist(solu,tam,dimention,m);
     	printf("Iteração %d: De custo inicial / atual: %li / %d \n",i, size_of_path, nossaSoluNova);
   	} while((nossaSoluNova < nossaSolu) || i == 1000);
-  	printf("Fora while\n");
-  	printf("%d / %d\n",nossaSolu,nossaSoluNova );
+  	printf("Iteracoes / Inicial / Final: %d / %li / %d\n",i, size_of_path,nossaSoluNova );
  return;   
 }
 
