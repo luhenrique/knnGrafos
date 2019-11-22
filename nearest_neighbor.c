@@ -73,8 +73,8 @@ void construct (){
    int solu[dimention];
    int tam = dimention;
 
-  imprimirMatriz(dimention,m);
-  printf("\n");
+  //imprimirMatriz(dimention,m);
+  //printf("\n");
 
 
   for(int k = 0; k<= dimention; k++){
@@ -112,28 +112,37 @@ void construct (){
     insert_into_visited(current_i, dimention, visited);
     n_visited++;
     solu[k] = current_i;
-    printf("\nDe %i para %i com custo %i e total parcial %li",current_i,next_i, shorter, size_of_path);
+    //printf("\nDe %i para %i com custo %i e total parcial %li",current_i,next_i, shorter, size_of_path);
 
   }
-  printf("\nTamanho do caminho inicial atraves de contrucao: %li\n\n", size_of_path);
-  printf("noisSolu antes do 2opt %d \n\n",CalcDist(solu,tam,dimention,m));
-  printf("Fase construtiva terminada. Iniando iteração melhorativa");
-  clock_t tempoOrd;
+  //printf("\nTamanho do caminho inicial atraves de contrucao: %li\n\n", size_of_path);
+  //printf("noisSolu antes do 2opt %d \n\n",CalcDist(solu,tam,dimention,m));
+  //printf("Fase construtiva terminada. Iniando iteração melhorativa");
 
-  tempoOrd = clock();
-  for (int i = 0; i < 5; i++)
-  {
-    /* code */
-    twoOpt(solu,tam,dimention,m);
-    printf("nois solu apos 2opt %d \n\n",CalcDist(solu,tam,dimention,m));
-  }
-  tempoOrd = clock() - tempoOrd;
-  printf("Tempo de execução: %f \n", ((float)tempoOrd/CLOCKS_PER_SEC));
-   printf("\nTamanho do caminho inicial atraves de contrucao: %li\n\n", size_of_path);
+  //clock_t tempoOrd;
+  //tempoOrd = clock();
+    //tempoOrd = clock() - tempoOrd;
+ 	//printf("Tempo de execução dentro do codigo: %f \n", ((float)tempoOrd/CLOCKS_PER_SEC));
 
 
+  	////tentativa while
+  	int nossaSolu=0; int nossaSoluNova=0;int comp = 0; int i=1;
+  	twoOpt(solu,tam,dimention,m);
+  	nossaSoluNova = CalcDist(solu,tam,dimention,m);
+
+  	printf("Iteração %d: De custo inicial / atual: %li / %d \n",i, size_of_path, nossaSolu);
+  	do {
+  		i++;
+  		nossaSolu = nossaSoluNova;
+  		twoOpt(solu,tam,dimention,m);
+  		nossaSoluNova = CalcDist(solu,tam,dimention,m);
+    	printf("Iteração %d: De custo inicial / atual: %li / %d \n",i, size_of_path, nossaSoluNova);
+  	} while((nossaSoluNova < nossaSolu) || i == 1000);
+  	printf("Fora while\n");
+  	printf("%d / %d\n",nossaSolu,nossaSoluNova );
  return;   
 }
+
 
 
 //2opt começa aqui ---------
@@ -177,11 +186,11 @@ int CalcDist(int *solu,int tam,int dim, int m[dim][dim]){
     int total = 0;
     for (int i = 0; i < (tam-1); i++){
       total += m[solu[i]] [solu[i+1]];
-      printf("vetor valor do vetor solu na posicao %d eh %d eh linha %d\n",i,solu[i], solu[i]);
-      printf("de %d para %d com custo %d e total partial %d\n",solu[i],solu[i+1], m[solu[i]] [solu[i+1]], total);
+      //printf("vetor valor do vetor solu na posicao %d eh %d eh linha %d\n",i,solu[i], solu[i]);
+      //printf("de %d para %d com custo %d e total partial %d\n",solu[i],solu[i+1], m[solu[i]] [solu[i+1]], total);
     }
     total += m[solu[tam-1]][((solu[0]))];
-    printf("de %d para %d com custo %d e total partial %d\n",(solu[tam-1]),((solu[0])), m[solu[tam-1]][((solu[0]))],total);
+    //printf("de %d para %d com custo %d e total partial %d\n",(solu[tam-1]),((solu[0])), m[solu[tam-1]][((solu[0]))],total);
     return total;
 }
 
@@ -203,7 +212,7 @@ void twoOpt(int *solu, int tam, int dimention, int m[dimention][dimention]){
     int novo[tam];
     int best[tam];
     int dist = CalcDist(solu, tam, dimention, m);
-    printf("%d\n", dist);
+    //printf("%d\n", dist);
     int min = dist;
     int k = 0;
     int l = 0;
