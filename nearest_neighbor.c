@@ -3,13 +3,16 @@
 #include <math.h>
 #include "read_file.c"
 #define INF 0x7F800000
+#include<time.h>
 
 
 int n_visited = 0;			
 long size_of_path = 0;
 char name_of_file[50];
 int dimention;
-
+int was_element_visited();
+int CalcDist();
+void twoOpt();
 
 void print_matrix(int s, int dim, int m[dim][dim]){
   for(int i = 0; i < s; i++){
@@ -47,6 +50,19 @@ int was_element_visited(int elem, int dim, int visited[dim]){
   return 0;
 }
 
+void imprimirMatriz(int dim, int m[dim][dim]){
+  printf("Matriz:\n");
+  for (int i = 0; i < dim; i++)
+  {
+    for (int j = 0; j < dim; j++)
+    {
+      /* code */
+      printf("-%d", m[i][j] );
+    }
+    printf("\n");
+  }
+}
+
 void construct (){
     printf("Digite o nome do arquivo\n");
    scanf("%s", name_of_file);
@@ -57,7 +73,8 @@ void construct (){
    int solu[dimention];
    int tam = dimention;
 
-
+  imprimirMatriz(dimention,m);
+  printf("\n");
 
 
   for(int k = 0; k<= dimention; k++){
@@ -95,14 +112,27 @@ void construct (){
     insert_into_visited(current_i, dimention, visited);
     n_visited++;
     solu[k] = current_i;
-    printf("\nDe %i para %i com custo %i",current_i,next_i, shorter);
+    printf("\nDe %i para %i com custo %i e total parcial %li",current_i,next_i, shorter, size_of_path);
 
   }
-  printf("\nTamanho do caminho: %li\n", size_of_path);
-  printf("noisSolu %d \n",CalcDist(solu,tam,dimention,m));
-  twoOpt(solu,tam,dimention,m);
-  printf("nois %d \n",CalcDist(solu,tam,dimention,m));
+  printf("\nTamanho do caminho inicial atraves de contrucao: %li\n\n", size_of_path);
+  printf("noisSolu antes do 2opt %d \n\n",CalcDist(solu,tam,dimention,m));
+  printf("Fase construtiva terminada. Iniando iteração melhorativa");
+  clock_t tempoOrd;
 
+  tempoOrd = clock();
+  for (int i = 0; i < 5; i++)
+  {
+    /* code */
+    twoOpt(solu,tam,dimention,m);
+    printf("nois solu apos 2opt %d \n\n",CalcDist(solu,tam,dimention,m));
+  }
+  tempoOrd = clock() - tempoOrd;
+  printf("Tempo de execução: %f \n", ((float)tempoOrd/CLOCKS_PER_SEC));
+   printf("\nTamanho do caminho inicial atraves de contrucao: %li\n\n", size_of_path);
+
+
+ return;   
 }
 
 
@@ -128,7 +158,7 @@ int troca(int *solu,int i,int j,int tam){
     return *solu;
 }
 
-int CalcDist(int *solu,int tam,int dim, int m[dim][dim]){
+int CalcDist2(int *solu,int tam,int dim, int m[dim][dim]){
     int total = 0;
     for (int i = 0; i < (tam-1); i++){
     	total += m[solu[i]-1] [solu[i+1]-1];
@@ -143,6 +173,18 @@ int CalcDist(int *solu,int tam,int dim, int m[dim][dim]){
 
 }
 
+int CalcDist(int *solu,int tam,int dim, int m[dim][dim]){
+    int total = 0;
+    for (int i = 0; i < (tam-1); i++){
+      total += m[solu[i]] [solu[i+1]];
+      printf("vetor valor do vetor solu na posicao %d eh %d eh linha %d\n",i,solu[i], solu[i]);
+      printf("de %d para %d com custo %d e total partial %d\n",solu[i],solu[i+1], m[solu[i]] [solu[i+1]], total);
+    }
+    total += m[solu[tam-1]][((solu[0]))];
+    printf("de %d para %d com custo %d e total partial %d\n",(solu[tam-1]),((solu[0])), m[solu[tam-1]][((solu[0]))],total);
+    return total;
+}
+
 void cloneVector(int *copia, int *copiado, int tam){
     for(int i=0; i < tam; i++){
         copia[i] = copiado[i];
@@ -154,6 +196,7 @@ void printVector(int *copia, int tam){
     for(int i=0; i < tam; i++){
         printf("%d\n", copia[i]);
     }
+    return;
 }
 
 void twoOpt(int *solu, int tam, int dimention, int m[dimention][dimention]){
@@ -182,13 +225,13 @@ void twoOpt(int *solu, int tam, int dimention, int m[dimention][dimention]){
 }
 
 
-
 //-------------------
 
 
 int main()
 {
   construct();
+
   
 
   return 0;
