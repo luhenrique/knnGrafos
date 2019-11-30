@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#include "read_file.c"
+#include "read_file.h"
 #define INF 0x7F800000
 #include<time.h>
 
